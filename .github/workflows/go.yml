@@ -21,6 +21,9 @@ jobs:
       with:
         go-version: '1.22'
 
+    - name: Create postgres-data directory
+      run: mkdir -p postgres-data
+
     - name: Inicia Banco
       run: docker compose up -d postgres
 
