@@ -21,11 +21,17 @@ jobs:
       with:
         go-version: '1.22'
 
+    - name: Create postgres-data directory
+      run: mkdir -p postgres-data
+
     - name: Inicia Banco
       run: docker compose up -d postgres
 
     - name: lint
-      run: docker run --rm -itv ${CURDIR}:/app -w /app golangci/golangci-lint golangci-lint run controllers/ database/ models/ routes/
+      uses: golangci/golangci-lint-action@v6
+      with:
+        version: v1.59
+        args: controllers/ database/ models/ routes/
       
 
     - name: Test
